@@ -10,7 +10,7 @@ description: Extra guides and tools are listed here
 
 <summary>What is Keymapping?</summary>
 
-Allows you to take a **REGISTERED** command, using the [RegisterCommand](https://docs.fivem.net/natives/?\_0x5FA79B0F) native, and apply a key binding to it. So instead of having to type in the slash command in the chat, you can just press a single key and execute it. This does NOT work with `QBCore.Commands.Add`.
+Allows you to take a **REGISTERED** command, using the [RegisterCommand](https://docs.fivem.net/natives/?_0x5FA79B0F) native, and apply a key binding to it. So instead of having to type in the slash command in the chat, you can just press a single key and execute it. This does NOT work with `QBCore.Commands.Add`.
 
 </details>
 
@@ -22,14 +22,14 @@ The purpose of this system is so that players can completely customize their exp
 
 <details>
 
-<summary><em>How to change a bind</em></summary>
+<summary>How to change a bind</summary>
 
-* Open your pause menu in game&#x20;
-* Navigate to settings
-* Select settings —> keybinds
-* Select FiveM
-* Find the command you want to change the key for and select it.
-* Press the desired key you’d like and that’s it
+-   Open your pause menu in game
+-   Navigate to settings
+-   Select settings —> keybinds
+-   Select FiveM
+-   Find the command you want to change the key for and select it.
+-   Press the desired key you’d like and that’s it
 
 </details>
 
@@ -41,19 +41,19 @@ Police can also do `/revoke [id] [licenseType]` to revoke a players ability to p
 
 If you would like the players to be granted by default look for this set of code in `qb-core/server/player.lua`
 
-```etlua
+```lua
 PlayerData.metadata["licences"] = PlayerData.metadata["licences"] ~= nil and PlayerData.metadata["licences"] or {
     ["driver"] = true,
     ["business"] = false,
     ["weapon"] = false
-}    
+}
 ```
 
 and change `["weapon"] = false` to `["weapon"] = true`
 
 Once a player has been granted a weapons license they will be able to purchase weapons from gun stores that have the `requiresLicense` variable set to `true`. To restrict weapon sales to individuals with a weapons license see the example config below from `qb-shops/config.lua`
 
-```etlua
+```lua
 [4] = {
     name = "weapon_pistol",
     price = 2500,
@@ -67,7 +67,7 @@ Once a player has been granted a weapons license they will be able to purchase w
 
 ## Onesync-infinity&#x20;
 
-Onesync-infinity should be enabled by default but if you ever need to enable it you would just put `set onesync on` in your server.cfg
+Onesync-infinity should be enabled by default but if you ever need to enable it you would just put `set onesync on` in your server.cfg or go into your txadmin > settings > fxserver > turn OneSync to on (with infinity).
 
 <details>
 
@@ -81,7 +81,7 @@ This is not an easy thing to describe because the code varies so you have to use
 
 <summary><strong>Getting The Coords</strong></summary>
 
-This one is relatively simple, you can use the native GetEntityCoords on the server side and then pass that through an event or a callback. If you want more info on how to use this native then you can view that [here](https://docs.fivem.net/natives/?\_0x3FEF770D40960D5A)
+This one is relatively simple, you can use the native GetEntityCoords on the server side and then pass that through an event or a callback. If you want more info on how to use this native then you can view that [here](https://docs.fivem.net/natives/?_0x3FEF770D40960D5A)
 
 </details>
 
@@ -89,7 +89,7 @@ This one is relatively simple, you can use the native GetEntityCoords on the ser
 
 To get a list of players on the server we must use either a native that is like this
 
-```etlua
+```lua
 for _, player in ipairs(GetActivePlayers()) do
 local ped = GetPlayerPed(player)
 -- do stuff
@@ -98,7 +98,7 @@ end
 
 Using the QB function you can do it like this
 
-```etlua
+```lua
 for _, player in pairs(QBCore.Functions.GetPlayers()) do
 local ped = GetPlayerPed(player)
 -- do stuff
@@ -111,7 +111,7 @@ end
 If you have a script that requires you to create a vehicle at a distance that is outside the infinity scope, you must use the code like below on the SERVER side
 {% endhint %}
 
-```etlua
+```lua
 local SpawnPoints = {
 vector4(-1327.479736328, -86.045326232910, 49.31, 52),
 vector4(-2075.888183593, -233.73908996580, 21.10, 52),
@@ -147,17 +147,17 @@ txAdmin does this automatically already but if needed then in your server.cfg pu
 
 ### Installation[​](https://overextended.github.io/docs/oxmysql/#installation) <a href="#installation" id="installation"></a>
 
-* Download the [latest build](https://github.com/overextended/oxmysql/releases/latest) of oxmysql (not the source code).
-* Extract the contents of the archive to your resources folder.
-* Start the resource near the top of your resources in your `server.cfg`.
-* If you have a lot of streamed assets, load them first to prevent timing out the connection.
+-   Download the [latest build](https://github.com/overextended/oxmysql/releases/latest) of oxmysql (not the source code).
+-   Extract the contents of the archive to your resources folder.
+-   Start the resource near the top of your resources in your `server.cfg`.
+-   If you have a lot of streamed assets, load them first to prevent timing out the connection.
 
 ### Configuration[​](https://overextended.github.io/docs/oxmysql/#configuration) <a href="#configuration" id="configuration"></a>
 
 You can change the configuration settings by using convars inside your `server.cfg`. Reference the following for an idea of how to set your connection options. You must include one of the following lines, adjusted for your connection and database settings.
 
 ```
-set mysql_connection_string "mysql://root:12345@localhost/es_extended?charset=utf8mb4"set mysql_connection_string "user=root;database=es_extended;password=12345;charset=utf8mb4"
+set mysql_connection_string "mysql://root:12345@localhost/qbcore?charset=utf8mb4"set mysql_connection_string "user=root;database=qbcore;password=12345;charset=utf8mb4"
 ```
 
 Certain special characters are reserved or blocked and may cause issues when used in your password.\
@@ -184,9 +184,9 @@ Also make sure that you have `command` ace permission access, then you should be
 Setting up your server.cfg is really simple and is already completed upon a successful txAdmin recipe install! You can also find additional information on server configuration files [**here**](https://docs.fivem.net/docs/server-manual/setting-up-a-server/)**.** In case of a manual install then here's a template to use
 
 ```systemd
-#   ____  ____   _____               
-#  / __ \|  _ \ / ____|              
-# | |  | | |_) | |     ___  _ __ ___ 
+#   ____  ____   _____
+#  / __ \|  _ \ / ____|
+# | |  | | |_) | |     ___  _ __ ___
 # | |  | |  _ <| |    / _ \| '__/ _ \
 # | |__| | |_) | |___| (_) | | |  __/
 #  \___\_\____/ \_____\___/|_|  \___|
@@ -202,7 +202,7 @@ sv_licenseKey "{{svLicense}}"
 sv_hostname "{{serverName}} built with {{recipeName}} by {{recipeAuthor}}!"
 sets sv_projectName "[{{recipeName}}] {{serverName}}"
 sets sv_projectDesc "{{recipeDescription}}"
-sets locale "en-US" 
+sets locale "en-US"
 load_server_icon myLogo.png
 set sv_enforceGameBuild 2372
 set mysql_connection_string "{{dbConnectionString}}"
@@ -254,20 +254,18 @@ add_principal qbcore.god qbcore.admin # Allow gods access to admin commands
 add_principal qbcore.admin qbcore.mod # Allow admins access to mod commands
 ```
 
-
-
 ## GitHub Pull Request
 
-* Visit the resource you would like to propose changes on
-* Navigate to the exact file within that resource
-* Click on the pencil icon and you will be able to make edits to the code
-* Once you are satisfied with your edits, scroll down to the box labeled "Propose Changes"
-* Write a title and short description of what the changes are
-* Once that's filled out, press the green "Propose Changes" button
-* You will see a screen showing your edits compared to the existing code
-* If you are satisfied with the edits shown, press the green "Create Pull Request" button
-* Fill in the title and description if necessary
-* Click on the green "Create Pull Request" button and it's finished!
+-   Visit the resource you would like to propose changes on
+-   Navigate to the exact file within that resource
+-   Click on the pencil icon and you will be able to make edits to the code
+-   Once you are satisfied with your edits, scroll down to the box labeled "Propose Changes"
+-   Write a title and short description of what the changes are
+-   Once that's filled out, press the green "Propose Changes" button
+-   You will see a screen showing your edits compared to the existing code
+-   If you are satisfied with the edits shown, press the green "Create Pull Request" button
+-   Fill in the title and description if necessary
+-   Click on the green "Create Pull Request" button and it's finished!
 
 {% hint style="success" %}
 If you have email notifications enabled, you will get any updates on the pull request by email

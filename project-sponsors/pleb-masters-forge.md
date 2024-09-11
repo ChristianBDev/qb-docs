@@ -4,9 +4,7 @@ description: Enter the forge!
 
 # 🗃 Pleb Masters: Forge
 
-
-
-![](../.gitbook/assets/pleb.png)
+![Pleb Masters Forge](../.gitbook/assets/pleb.png)
 
 ## Who are they?
 

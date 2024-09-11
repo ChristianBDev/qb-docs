@@ -14,6 +14,16 @@ The first thing that is recommended to do before installing a package is updatin
 sudo apt-get update
 ```
 
+then
+
+```
+sudo apt-get upgrade
+```
+
+{% hint style="danger" %}
+
+```
+
 {% hint style="danger" %}
 Make sure to always use a user that has sudo privileges. On Linux, root accounts have access to everything on the system. It is advised that a specific user has sudo privileges and remote root access is turned off to prevent any incidents related to possible breaches. You can read more about initial Linux security [here](https://blog.avast.com/secure-your-linux-server-avast).
 {% endhint %}
@@ -21,13 +31,17 @@ Make sure to always use a user that has sudo privileges. On Linux, root accounts
 After you've updated your system, it's time to install the MariaDB server. You do so by entering the command below
 
 ```
+
 sudo apt-get install mariadb-server
+
 ```
 
 Follow the setup that guides you through. There should be a few options that you select with the space key. Eventually, when you've completed the installation, you'll need to run through a secure installation with the command below.
 
 ```
+
 sudo mysql_secure_installation
+
 ```
 
 The script will prompt you to set up the root user password, remove the anonymous user, restrict root user access to the local machine and remove the test database. At the end the script will reload the privilege tables ensuring that all changes take effect immediately.
@@ -37,7 +51,9 @@ All steps are explained in detail and it is recommended to answer “Y” (yes) 
 After you've done the secure installation above, you can then connect to your mysql service via the command below. You log in as the local mysql root user with the password that you've set in the secure installation.
 
 ```
+
 mysql -u root -p
+
 ```
 
 {% hint style="warning" %}
@@ -55,7 +71,9 @@ Let's start by creating an administrative user that can handle creation of other
 Open up your mysql instance with the command below
 
 ```
+
 mysql -u root -p
+
 ```
 
 Once you're in the console, it should look a bit like this
@@ -65,10 +83,12 @@ Once you're in the console, it should look a bit like this
 We will now proceed with creating an administrator user account. Enter the commands as they are seen below in numerical order. You will only need to edit a few things (Such as username, password and host)
 
 ```
+
 CREATE USER 'user1'@localhost IDENTIFIED BY 'password1';
 (Check the user created by running this line) SELECT User FROM mysql.user;
-GRANT ALL PRIVILEGES ON *.* TO 'user1'@localhost IDENTIFIED BY 'password1';
+GRANT ALL PRIVILEGES ON _._ TO 'user1'@localhost IDENTIFIED BY 'password1';
 FLUSH PRIVILEGES;
+
 ```
 
 {% hint style="info" %}
@@ -103,13 +123,17 @@ After you've edited the bind address to 0.0.0.0, you can exit the file using CTR
 After that, we restart the mariadb service to confirm changes to the files using the commands below
 
 ```
+
 sudo systemctl restart mariadb
+
 ```
 
 You can check the status of the service by using the below command
 
 ```
+
 sudo systemctl status mariadb
+
 ```
 
 ![systemctl status of MariaDB](../.gitbook/assets/Terminus\_f7VVyPHkLC.png)
@@ -125,7 +149,9 @@ Ports are like doors that have specific things behind them. A door needs to be u
 MySQL services have a default port of 3306, you can change these in the settings, but you do not need to do so. We will be using a firewall software called iptables that allows us to open these ports. These usually do come as standard and already installed with certain distributions of Linux. You can check if iptables is already installed with the command below.
 
 ```
+
 sudo iptables --version
+
 ```
 
 If you get a response similiar to what is below in the screenshot, then you've got iptables installed and ready for use.
@@ -135,7 +161,9 @@ If you get a response similiar to what is below in the screenshot, then you've g
 Once you've verified that you have iptables installed, just run the following command to open the 3306 port for MySQL Connections.
 
 ```
+
 sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+
 ```
 
 You can check if the port is open and able to be seen by using this website [here](https://portchecker.co/).
@@ -147,7 +175,9 @@ Using artifacts is the most important bit, because it is essentially the brain o
 Move to whichever folder you are going to download the file to. (I usually make a seperate folder for Artifacts and Files, just so they're seperated.) Use the following command (Remember to replace the link with whatever you get from the Artifacts website)
 
 ```
+
 wget https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/5742-ded89bc6acf29a720a7686a1de70d28b62c75af8/fx.tar.xz
+
 ```
 
 ![Using wget](https://user-images.githubusercontent.com/89489089/179919507-a17cbce0-5307-4a34-9bf1-64acdd68e29c.png)
@@ -155,7 +185,9 @@ wget https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/5742-ded
 After this is done, you will have the files in the directory you currently are. You then simply "untar" the archive with the tar command found below
 
 ```
+
 tar -xf fx.tar.xz
+
 ```
 
 The console will hang for a bit. After it is done, you should see the files in the directory after you run the dir command.
@@ -165,7 +197,10 @@ The console will hang for a bit. After it is done, you should see the files in t
 The only thing left to do now is running the actual artifacts. While Windows uses .exe and .bat files, Linux uses so called .sh files to run Cfx Artifacts. Make sure that you're in a screen like we've discussed earlier and run the following command in the directory with the run.sh file to start your FiveM server.
 
 ```
+
 ./run.sh
+
 ```
 
 The rest of the setup is relatively easy, since you are now setting up txAdmin, it is identical to the Windows installation. Continue the tutorial in the Windows section, just skipping the part about the artifacts and continuing after the .exe is ran [here](https://docs.qbcore.org/qbcore-documentation/guides/windows-installation#artifact-and-txadmin).
+```
