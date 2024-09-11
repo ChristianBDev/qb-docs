@@ -6,7 +6,7 @@ description: Learn how to manage your server's jobs, vehicles, items, etc!
 
 ## Introduction
 
-* The shared file inside qb-core contains all the information for your jobs, vehicles, items & more! You will spend a lot of time in this file configuring everything to your exact specifications. Jenkins hashes are used frequently, you can find more information on those [here](https://cookbook.fivem.net/2019/06/23/lua-support-for-compile-time-jenkins-hashes/)
+-   The shared file inside qb-core contains all the information for your jobs, vehicles, items & more! You will spend a lot of time in this file configuring everything to your exact specifications. Jenkins hashes are used frequently, you can find more information on those [here](https://cookbook.fivem.net/2019/06/23/lua-support-for-compile-time-jenkins-hashes/)
 
 {% hint style="success" %}
 QBCore uses lua tables to store static information instead of a database to prevent needing to execute queries. When you combine this with the ability to use [shared-exports.md](shared-exports.md "mention") it can be a very powerful tool!
@@ -14,7 +14,7 @@ QBCore uses lua tables to store static information instead of a database to prev
 
 ### Utility
 
-* Found in qb-core/shared/main.lua
+-   Found in qb-core/shared/main.lua
 
 ```lua
 QBShared = QBShared or {}
@@ -98,46 +98,33 @@ QBShared.StarterItems = {
 
 ### Items
 
-* Found in qb-core/shared/items.lua
+-   Found in qb-core/shared/items.lua
 
 ```lua
 QBShared.Items = {
-    ['id_card'] = {
-        ['name'] = 'id_card', -- Actual item name for spawning/giving/removing
-        ['label'] = 'ID Card', -- Label of item that is shown in inventory slot
-        ['weight'] = 0, -- How much the items weighs
-        ['type'] = 'item', -- What type the item is (ex: item, weapon)
-        ['image'] = 'id_card.png', -- This item image that is found in qb-inventory/html/images (must be same name as ['name'] from above)
-        ['unique'] = true, -- Is the item unique (true|false) - Cannot be stacked & accepts item info to be assigned
-        ['useable'] = true, -- Is the item useable (true|false) - Must still be registered as useable
-        ['shouldClose'] = false, -- Should the item close the inventory on use (true|false)
-        ['combinable'] = nil, -- Is the item able to be combined with another? (nil|table)
-        ['description'] = 'A card containing all your information to identify yourself' -- Description of time in inventory
-    }
-}
-
--- Example of an item that is combinable and not nil
-
-['combinable'] = {
-    accept = {'snspistol_part_1'}, -- The other item that can be it can be combined with
-    reward = 'snspistol_stage_1', -- The item that is rewarded upon successful combine
-    anim = { -- Set the animation, progressbar text and length of time it takes to combine
-        ['dict'] = 'anim@amb@business@weed@weed_inspecting_high_dry@', -- The animation dictionary
-        ['lib'] = 'weed_inspecting_high_base_inspector', -- The animation library
-        ['text'] = 'Atttaching attachments', -- Text that will be displayed in the progress bar
-        ['timeOut'] = 15000,} -- How long the animation should take to complete
+    id_card = {
+        name = 'id_card', -- Actual item name for spawning/giving/removing
+        label = 'ID Card', -- Label of item that is shown in inventory slot
+        weight = 0, -- How much the items weighs
+        type = 'item', -- What type the item is (ex: item, weapon)
+        image = 'id_card.png', -- This item image that is found in qb-inventory/html/images
+        unique = true, -- Is the item unique (true|false) - Cannot be stacked & accepts item info to be assigned
+        useable = true, -- Is the item useable (true|false) - Must still be registered as useable
+        shouldClose = false, -- Should the item close the inventory on use (true|false)
+        combinable = nil, -- Is the item able to be combined with another? (nil|table)
+        description = 'A card containing all your information to identify yourself' -- Description of time in inventory
     }
 }
 ```
 
 ### Jobs
 
-* Found in qb-core/shared/jobs.lua
+-   Found in qb-core/shared/jobs.lua
 
 ```lua
 QBShared.ForceJobDefaultDutyAtLogin = true -- true: Force duty state to jobdefaultDuty | false: set duty state from database last saved
 QBShared.Jobs = {
-    ['unemployed'] = { -- job name (string)
+    unemployed = { -- job name (string)
         label = 'Civilian', -- job label (string)
         defaultDuty = true, -- enable/disable player being auto clocked-in (bool)
         grades = {
@@ -147,7 +134,7 @@ QBShared.Jobs = {
             },
         },
     },
-    ['police'] = {
+    police = {
         label = 'Law Enforcement',
         defaultDuty = true,
         grades = {
@@ -179,29 +166,29 @@ QBShared.Jobs = {
 
 ### Vehicles
 
-* Found in qb-core/shared/vehicles.lua
+-   Found in qb-core/shared/vehicles.lua
 
 ```lua
-QBShared.Vehicles = {
-    ['adder'] = { -- Vehicle model/spawn name (string)
-        ['name'] = 'Adder', -- Desired name/label for the vehicle (string)
-        ['brand'] = 'Truffade', -- The brand of vehicle (string)
-        ['model'] = 'adder', -- Vehicle model/spawn name (string)
-        ['price'] = 280000, -- How much the vehicle costs at the dealership (number)
-        ['category'] = 'super', -- The category the vehicle will display in at the dealership (string)
-        ['hash'] = `adder`, -- Vehicle hash key (jenkins hash || GetHashKey(model))
-        ['shop'] = 'pdm', -- The desired shop the vehicle is available for sale at (string)
-    }
+local Vehicles = {
+    {
+        model = 'asbo',        -- This has to match the spawn code of the vehicle
+        name = 'Asbo',         -- This is the display of the vehicle
+        brand = 'Maxwell',     -- This is the vehicle's brand
+        price = 4000,          -- The price that the vehicle sells for
+        category = 'compacts', -- Catgegory of the vehilce, stick with GetVehicleClass() options https://docs.fivem.net/natives/?_0x29439776AAA00A62
+        type = 'automobile',   -- Vehicle type, refer here https://docs.fivem.net/natives/?_0x6AE51D4B & here https://docs.fivem.net/natives/?_0xA273060E
+        shop = 'pdm',          -- Can be a single shop or multiple shops. For multiple shops for example {'shopname1','shopname2','shopname3'}
+    },
 }
 ```
 
 ### Gangs
 
-* Found in qb-core/shared/gangs.lua
+-   Found in qb-core/shared/gangs.lua
 
 ```lua
 QBShared.Gangs = {
-    ['mynewgang'] = { -- grade name (string)
+    mynewgang = { -- grade name (string)
         label = 'My Fancy Gang Name', -- Label of the gang (string)
         grades = {
             ['0'] = { -- grade (number)
@@ -224,7 +211,7 @@ QBShared.Gangs = {
 
 ### Weapons
 
-* Found in qb-core/shared/weapons.lua
+-   Found in qb-core/shared/weapons.lua
 
 {% hint style="warning" %}
 Weapons are added in shared/items.lua as well!
